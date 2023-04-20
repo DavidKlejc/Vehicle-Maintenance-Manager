@@ -44,6 +44,25 @@ namespace backend.Controllers
             return Ok(convertedVehicles);
         }
 
+        // Read
+        [HttpGet]
+        [Route("Get/{id}")]
+        public async Task<ActionResult<IEnumerable<VehicleGetDto>>> GetVehiclesByOwner([FromRoute] long id)
+        {
+            var owner = await _context.Owners.FirstOrDefaultAsync(q => q.ID == id);
+
+            if (owner is null) return NotFound("Owner not found");
+
+            var vehicles = await _context.Vehicles.Include(vehicle => vehicle.Owner)
+                .Where(vehicle => vehicle.Owner.ID == id)
+                .OrderByDescending(q => q.CreatedAt)
+                .ToListAsync();
+            var convertedVehicles = _mapper.Map<IEnumerable<VehicleGetDto>>(vehicles);
+
+            return Ok(convertedVehicles);
+        }
+
+
         // Update
         [HttpPut]
         [Route("{id}")]

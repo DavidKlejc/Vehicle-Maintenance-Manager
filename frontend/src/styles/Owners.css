@@ -1,0 +1,78 @@
+/* Styles for desktop screens */
+.owners {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  padding-top: 15px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 20px;
+}
+
+.owner-name {
+  background-color: #031b34;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+li a {
+  text-align: right;
+  margin-left: 20px;
+}
+
+.individual-owner {
+  margin: 20px;
+  background-color: #031b34;
+  border-radius: 10px;
+}
+
+.owner-names {
+  background-color: #031b34;
+}
+
+.button {
+  text-decoration: none;
+  border: 1px solid #3c5168;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.button:hover {
+  background-color: #0f2d4c;
+}
+
+/* Styles for mobile screens */
+@media only screen and (max-width: 600px) {
+  li {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .owner-name {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  li a {
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: center;
+  }
+}

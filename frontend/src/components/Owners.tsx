@@ -1,19 +1,67 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { IOwner } from "../types/global.typing";
 import httpModule from "../helpers/http.module";
 import "../styles/Owners.css";
 import { Link } from "react-router-dom";
 import { useAtom } from "jotai";
-import { ownerIDAtom } from "../App";
+import { ownerIDAtom, deleteOwnerByIDAtom } from "../App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { confirmAlert, ReactConfirmAlertProps } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import "../styles/CustomAlert.css";
+
+interface CustomReactConfirmAlertProps
+  extends Omit<ReactConfirmAlertProps, "message"> {
+  className?: string;
+  message: ReactNode;
+}
 
 const Owners = () => {
   const [owners, setOwners] = useState<IOwner[]>([]);
   const [ownerID, setOwnerID] = useAtom(ownerIDAtom);
+  const [deleteOwner, setDeleteOwner] = useAtom(deleteOwnerByIDAtom);
 
   const handleSelectedOwner = (owner_id: string) => {
-    console.log(owner_id);
     setOwnerID(owner_id);
+  };
+
+  const handleDeleteOwner = (owner_id: string) => {
+    httpModule
+      .delete(`/Owner/${owner_id}`)
+      .then((response) => {
+        setOwners(owners.filter((owner) => owner.id !== owner_id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleDeleteOwnerButtonClicked = (owner_id: string) => {
+    const options: CustomReactConfirmAlertProps = {
+      title: "Confirm Deletion",
+      message: (
+        <div className="alert-message">
+          Are you sure you want to delete this owner?
+        </div>
+      ),
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => handleDeleteOwner(owner_id),
+          className: "confirm-button",
+        },
+        {
+          label: "No",
+          className: "cancel-button",
+        },
+      ],
+      closeOnClickOutside: true,
+      closeOnEscape: true,
+      className: "alert-container",
+    };
+
+    confirmAlert(options as ReactConfirmAlertProps);
   };
 
   useEffect(() => {
@@ -36,16 +84,26 @@ const Owners = () => {
             <div className="owner-names">
               {owner.firstName} {owner.lastName}
             </div>
-            <Link
-              onClick={() => handleSelectedOwner(owner.id)}
-              to={`/Vehicle/${owner.id}`}
-              className="button"
-            >
-              View
-            </Link>
+            <div className="buttons-wrapper">
+              <Link
+                onClick={() => handleSelectedOwner(owner.id)}
+                to={`/Owner/${owner.id}`}
+                className="view-owner-button"
+              >
+                View
+              </Link>
+              <FontAwesomeIcon
+                icon={faTrashCan}
+                className="trash-can-icon"
+                onClick={() => handleDeleteOwnerButtonClicked(owner.id)}
+              />
+            </div>
           </li>
         ))}
       </ul>
+      <Link to="/Owner/Create" className="add-owner-button">
+        Add Owner
+      </Link>
     </div>
   );
 };

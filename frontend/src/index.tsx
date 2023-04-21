@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 import App from "./App";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Vehicle from "./components/Vehicle";
+import CreateOwner from "./components/CreateOwner";
 
 function Root() {
   const router = createBrowserRouter([
@@ -12,8 +13,12 @@ function Root() {
       element: <App />,
     },
     {
-      path: "/Vehicle/:ownerID",
+      path: "/Owner/:ownerID",
       element: <Vehicle />,
+    },
+    {
+      path: "/Owner/Create",
+      element: <CreateOwner />,
     },
   ]);
 

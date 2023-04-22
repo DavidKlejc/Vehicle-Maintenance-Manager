@@ -1,26 +1,30 @@
-import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IOwner } from "../types/global.typing";
 import httpModule from "../helpers/http.module";
 import "../styles/Owners.css";
 import { Link } from "react-router-dom";
 import { useAtom } from "jotai";
-import { ownerIDAtom, deleteOwnerByIDAtom } from "../App";
+import { ownerIDAtom } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { confirmAlert, ReactConfirmAlertProps } from "react-confirm-alert";
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "../styles/CustomAlert.css";
-
-interface CustomReactConfirmAlertProps
-  extends Omit<ReactConfirmAlertProps, "message"> {
-  className?: string;
-  message: ReactNode;
-}
 
 const Owners = () => {
   const [owners, setOwners] = useState<IOwner[]>([]);
   const [ownerID, setOwnerID] = useAtom(ownerIDAtom);
-  const [deleteOwner, setDeleteOwner] = useAtom(deleteOwnerByIDAtom);
+
+  useEffect(() => {
+    httpModule
+      .get<IOwner[]>("/Owner/Get")
+      .then((response) => {
+        setOwners(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [ownerID]);
 
   const handleSelectedOwner = (owner_id: string) => {
     setOwnerID(owner_id);
@@ -38,12 +42,14 @@ const Owners = () => {
   };
 
   const handleDeleteOwnerButtonClicked = (owner_id: string) => {
-    const options: CustomReactConfirmAlertProps = {
-      title: "Confirm Deletion",
-      message: (
-        <div className="alert-message">
-          Are you sure you want to delete this owner?
-        </div>
+    const options = {
+      childrenElement: () => (
+        <>
+          <h2>Confirm Deletion</h2>
+          <div className="alert-message">
+            Are you sure you want to delete this owner?
+          </div>
+        </>
       ),
       buttons: [
         {
@@ -61,19 +67,8 @@ const Owners = () => {
       className: "alert-container",
     };
 
-    confirmAlert(options as ReactConfirmAlertProps);
+    confirmAlert(options);
   };
-
-  useEffect(() => {
-    httpModule
-      .get<IOwner[]>("/Owner/Get")
-      .then((response) => {
-        setOwners(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [ownerID]);
 
   return (
     <div className="owners">

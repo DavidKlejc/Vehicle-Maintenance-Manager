@@ -1,0 +1,108 @@
+.owners {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  padding-top: 15px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.owner-name {
+  background-color: #031b34;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.trash-can-icon {
+  color: #ff0022;
+  cursor: pointer;
+}
+
+li a {
+  text-align: right;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.individual-owner {
+  margin: 20px;
+  background-color: #031b34;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.owner-names {
+  background-color: #031b34;
+}
+
+.view-owner-button {
+  text-decoration: none;
+  border: 1px solid #3c5168;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.view-owner-button:hover {
+  background-color: #122f54;
+}
+
+.buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #031b34;
+}
+
+.button:hover {
+  background-color: #122f54;
+}
+
+.add-owner-button {
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 17px;
+  text-decoration: none;
+  border: 1px solid #3c5168;
+  border-radius: 25px;
+  padding: 12px;
+  background-color: #04203e;
+}
+
+.add-owner-button:hover {
+  background-color: #122f54;
+}
+
+/* Styles for mobile screens */
+@media only screen and (max-width: 600px) {
+  .buttons-wrapper {
+    margin-top: 10px;
+  }
+  li {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  li a {
+    margin-left: 0;
+    text-align: center;
+  }
+}

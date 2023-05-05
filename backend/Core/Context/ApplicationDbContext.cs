@@ -1,4 +1,6 @@
 ﻿using backend.Core.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Core.Context
@@ -26,6 +28,13 @@ namespace backend.Core.Context
                 // A vehicle has a foreign key of OwnerId
                 .HasForeignKey(vehicle => vehicle.OwnerId);
 
+            modelBuilder.Entity<Owner>()
+                // A owner has one user
+                .HasOne(owner => owner.User)
+                // A user has many owners
+                .WithMany()
+                // A owner has a foreign key of UserId
+                .HasForeignKey(owner => owner.UserId);
         }
     }
 }

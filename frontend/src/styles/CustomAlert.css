@@ -1,0 +1,85 @@
+.react-confirm-alert-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.react-confirm-alert-body {
+  background-color: #121212;
+  color: white;
+}
+
+.react-confirm-alert {
+  border-radius: 25px;
+  padding: 20px;
+}
+
+.react-confirm-alert-button-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.react-confirm-alert-button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.react-confirm-alert-button-group {
+  background-color: #121212;
+}
+
+.react-confirm-alert-button-group .confirm-button {
+  background-color: #383838;
+}
+
+.react-confirm-alert-button-group .confirm-button:hover {
+  background-color: black;
+}
+
+.react-confirm-alert-button-group .cancel-button {
+  background-color: #383838;
+  margin-right: 0;
+}
+
+.react-confirm-alert-button-group .cancel-button:hover {
+  background-color: black;
+}
+
+@media only screen and (max-width: 600px) {
+  .react-confirm-alert-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    max-width: 270px;
+  }
+
+  .alert-message {
+    text-align: center;
+  }
+
+  .react-confirm-alert-message {
+    font-size: 10px;
+  }
+
+  .react-confirm-alert {
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .react-confirm-alert-button {
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  .react-confirm-alert-button-group {
+    justify-content: center;
+  }
+}

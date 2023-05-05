@@ -1,4 +1,6 @@
-﻿namespace backend.Core.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace backend.Core.Entities
 {
     public class Owner : BaseEntity
     {
@@ -6,7 +8,11 @@
 
         public string LastName { get; set; }
 
-        // Relation
+        // Relations
         public ICollection<Vehicle> Vehicles { get; set; }
+
+        public string UserId { get; set; }
+
+        public IdentityUser User { get; set; }
     }
 }

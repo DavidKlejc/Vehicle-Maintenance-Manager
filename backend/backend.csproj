@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Core\Enums\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
